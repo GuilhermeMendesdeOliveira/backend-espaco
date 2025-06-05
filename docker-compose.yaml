@@ -1,33 +1,25 @@
-version: '3.8'
-
 services:
-  backend:
+  api:
     build: .
-    container_name: espaco_das_divas_api
+    container_name: minha-api
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - DATABASE_URL=${DATABASE_URL}
+      - NODE_ENV=development
     depends_on:
-      - db
+      - postgres
 
-  db:
+  postgres:
     image: postgres:15
-    container_name: espaco_das_divas_db
+    container_name: meu-banco
     restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: meuusuario
+      POSTGRES_PASSWORD: minhasenha
+      POSTGRES_DB: meubanco
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 

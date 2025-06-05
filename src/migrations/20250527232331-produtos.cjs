@@ -25,8 +25,7 @@ module.exports = {
         },
         id_categoria: {
           type: Sequelize.STRING,
-          allowNull: false,
-          references: { model: 'categoria', key: 'id' }
+          allowNull: false
         },
         preco: {
           type: Sequelize.DOUBLE,
