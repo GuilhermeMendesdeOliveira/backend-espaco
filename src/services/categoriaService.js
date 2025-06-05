@@ -13,6 +13,17 @@ class CategoriaService {
         }
     }
 
+    async findAll(){
+        try {
+            const categorias = await this.categoriaRepository.findAll();
+            return categorias;
+        }
+        catch (error){
+            console.error(error);
+            throw new Error('Erro ao buscar as categorias')
+        }
+    }
+
     validateData(data){
         if ( !data ){
             throw new Error('Dados não informados');

@@ -34,6 +34,39 @@ class CategoriaController {
             });
         }
     }
+
+    async findAll(req, res){
+        try {
+            const categorias = await this.categoriaService.findAll();
+            if (categorias.length > 0){
+                res.status(200).json({
+                    message: 'Categorias encontradas com sucesso!',
+                    categorias
+                });
+            }
+            else {
+                res.status(404).json({
+                    message: 'Nenhuma categoria encontrada!'
+                });
+            }
+        }
+        catch (error){
+            console.error(error);
+            const errorMessage = error.message || 'Ocorreu um erro inesperado!';
+
+            const errorMap = {
+                'Erro ao buscar as categorias':
+                    {status: 400, message: 'Erro ao buscar as categorias'},
+                'Ocorreu um erro inesperado!':
+                    {status: 500, message: 'Erro interno do servidor, tente novamente mais tarde'}
+            };
+            
+            const errorMapped = errorMap[errorMessage];
+            res.status(errorMapped.status).json({
+                message: errorMapped.message
+            });
+        }
+    }
 }
 
 export default CategoriaController;
