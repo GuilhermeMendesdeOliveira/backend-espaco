@@ -1,11 +1,11 @@
 services:
   api:
     build: .
-    container_name: api_espacodasdivas
+    container_name: api_espacodasdivass
     ports:
       - "54863:54863"
     environment:
-      - DATABASE_URL=postgres://meuusuario:minhasenha@postgres:5432/espacodasdivas
+      - DATABASE_URL=postgres://meuusuario:minhasenha@postgres:5432/espacodasdivass
       - NODE_ENV=development
     depends_on:
       - postgres
@@ -15,14 +15,14 @@ services:
 
   postgres:
     image: postgres:15
-    container_name: espacodasdivas_postgres
+    container_name: espacodasdivass_postgres
     restart: always
     environment:
       POSTGRES_USER: meuusuario
       POSTGRES_PASSWORD: minhasenha
-      POSTGRES_DB: espacodasdivas
+      POSTGRES_DB: espacodasdivass
     ports:
-      - "54871:5432"
+      - "55432:5432" # ou outra acima de 55000
     volumes:
       - pgdata:/var/lib/postgresql/data
 
