@@ -1,27 +1,42 @@
 services:
   api:
     build: .
-    container_name: minha-api
+    container_name: api_espacodasdivas
     ports:
-      - "3001:3000"
+      - "54863:54863"
     environment:
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=postgres://meuusuario:minhasenha@postgres:5432/espacodasdivas
       - NODE_ENV=development
     depends_on:
       - postgres
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
 
   postgres:
     image: postgres:15
-    container_name: meu-banco
+    container_name: espacodasdivas_postgres
     restart: always
     environment:
       POSTGRES_USER: meuusuario
       POSTGRES_PASSWORD: minhasenha
-      POSTGRES_DB: meubanco
+      POSTGRES_DB: espacodasdivas
     ports:
-      - "5433:5432"
+      - "54870:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
 
 volumes:
   pgdata:

@@ -1,0 +1,61 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ambiente
+.env
+.env.*.local
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Diretórios temporários
+tmp/
+temp/
+dist/
+build/
+.cache/
+.vite/
+.next/
+out/
+
+# Diretórios do Sequelize CLI
+migrations/
+seeders/
+
+# Banco de dados local
+*.sqlite
+*.sqlite3
+*.db
+
+# VS Code
+.vscode/
+
+# SO: macOS
+.DS_Store
+
+# SO: Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Test Coverage
+coverage/
+
+# IDEs
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# TypeScript
+*.tsbuildinfo
+
+# Outros
+*.local
+*.bak
+*.swp

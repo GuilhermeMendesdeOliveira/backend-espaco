@@ -1,27 +1,42 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
+
+
 
 // Importa os modelos
-import Categoria from '../models/categoriaModel.js';
 import Produto from '../models/produtoModel.js';
-import Usuario from '../models/usuarioModel.js';
 
 dotenv.config();
 
-const connection = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  logging: false,
-});
+const config = JSON.parse(
+  fs.readFileSync(new URL('../config/config.json', import.meta.url), 'utf8')
+);
 
-const models = [Categoria, Produto, Usuario];
+
+const isTestEnv = process.env.NODE_ENV;
+const { dialect, storage } = config[isTestEnv];
+const models = [Produto];
+
+console.log('isTestEnv:', isTestEnv);
+console.log("🔗 Conectando ao banco de dados...");
+let connection;
+if (isTestEnv === 'test') {
+  connection = new Sequelize({dialect, storage, logging: console.log});
+} else {
+  connection = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    logging: false,
+  });
+}
+
 
 models.forEach((model) => model.init(connection));
-models.forEach((model) => {
-  if (typeof model.associate === 'function') {
-    model.associate(connection.models);
-  }
-});
+models.forEach(
+  (model) => model.associate && model.associate(connection.models)
+);
 
-connection.sync();
+// connection.sync();
 
 export default connection;

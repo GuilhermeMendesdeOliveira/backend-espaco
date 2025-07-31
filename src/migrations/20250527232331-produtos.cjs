@@ -6,66 +6,64 @@ module.exports = {
     await queryInterface.createTable('produtos', 
       { 
         id: {
-          type: Sequelize.INTEGER,
-          autoIncrement: true,
+          type: Sequelize.BIGINT,
           primaryKey: true,
           allowNull: false
         },
-        produto: {
-          type: Sequelize.STRING,
+        id_produto_pai: {
+          type: Sequelize.BIGINT,
+          allowNull: true,
+          defaultValue: null,
+          comment: 'ID do produto pai no Bling, se for um produto filho'
+        },
+        nome: {
+          type: Sequelize.STRING(255),
           allowNull: false
         },
-        descricao_curta: {
-          type: Sequelize.STRING,
-          allowNull: false
-        },
-        descricao_longa: {
-          type: Sequelize.TEXT,
-          allowNull: false
-        },
-        id_categoria: {
-          type: Sequelize.STRING,
-          allowNull: false
+        codigo: {
+          type: Sequelize.STRING(50),
+          allowNull: false,
         },
         preco: {
-          type: Sequelize.DOUBLE,
-          allowNull: false
-        },
-        imagem: {
-          type: Sequelize.STRING,
-          allowNull: true
-        },
-        imagem_2: {
-          type: Sequelize.STRING,
-          allowNull: true
-        },
-        imagem_3: {
-          type: Sequelize.STRING,
-          allowNull: true
-        },
-        quantidade: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.DECIMAL(10, 2),
           allowNull: false,
+          defaultValue: 0.00
+        },
+        estoque: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
           defaultValue: 0
         },
-        isNew: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false
+        tipo: {
+          type: Sequelize.STRING(10),
+          allowNull: true,
+          defaultValue: 'P'
         },
-        isFeatured: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false
+        situacao: {
+          type: Sequelize.STRING(10),
+          allowNull: true,
+          defaultValue: 'A'
         },
-        cores: {
-          type: Sequelize.STRING,
-          allowNull: true
+        formato: {
+          type: Sequelize.STRING(10),
+          allowNull: true,
+        },
+        descricao_curta: {
+          type: Sequelize.TEXT,
+          allowNull: true,
+          comment: 'Descrição curta do produto'
+        },
+        img_url: {
+          type: Sequelize.TEXT,
+          allowNull: true,
+          defaultValue: null,
+          comment: 'URL da imagem do produto'
         },
         ativo: {
           type: Sequelize.BOOLEAN,
           allowNull: false,
-          defaultValue: true
+          defaultValue: true,
+          comment: 'Indica se o produto está ativo ou inativo'
         },
         created_at: {
           type: Sequelize.DATE,
