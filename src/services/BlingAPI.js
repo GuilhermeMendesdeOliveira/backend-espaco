@@ -16,6 +16,11 @@ export default class BlingAPI {
     });
   }
 
+  // Função auxiliar para aguardar
+  async delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   async getProdutos() {
     try {
       const todosProdutos = [];
@@ -29,15 +34,17 @@ export default class BlingAPI {
             limite: 100, // valor máximo permitido pela API da Bling
           },
         });
-        const produtos = response.data.data || [];
 
+        const produtos = response.data.data || [];
         todosProdutos.push(...produtos);
 
-        // Se a quantidade de produtos retornados for menor que o limite, é a última página
+        // Se a quantidade de produtos for menor que o limite, é a última página
         if (produtos.length < 100) {
           continuar = false;
         } else {
           paginaAtual++;
+          console.log(`Aguardando 10 segundos antes de buscar a página ${paginaAtual}...`);
+          await this.delay(10000); // espera de 10 segundos
         }
       }
 
