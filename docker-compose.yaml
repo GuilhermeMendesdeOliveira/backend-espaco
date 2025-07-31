@@ -22,7 +22,7 @@ services:
       POSTGRES_PASSWORD: minhasenha
       POSTGRES_DB: espacodasdivas
     ports:
-      - "54880:5432"
+      - "54871:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -34,7 +34,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
-      - "5055:80"
+      - "5555:80"
     depends_on:
       - postgres
 
